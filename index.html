@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESL Lesson: New Community Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A tab-based, single-page application structure was chosen to transform the linear lesson plan into an interactive learning experience. The structure is divided into four clear, task-oriented tabs: "Story," "Vocabulary," "Grammar," and "Practice." This design allows learners to freely navigate between different lesson components, reinforcing learning through repetition and self-paced exploration. For example, a user can read the story, jump to the vocabulary tab to study the new words using interactive flashcards, then return to the story. The practice tab provides immediate feedback, turning passive exercises into active learning moments. This non-linear, modular approach is more engaging and effective for adult learners than a simple top-to-bottom document, as it mimics the functionality of a modern learning application and puts the user in control of their educational journey. -->
+    <!-- Visualization & Content Choices: The lesson's content was transformed into interactive components. Goal: Vocabulary acquisition -> Method: Interactive Flashcards -> Interaction: Users click a card to "flip" it and reveal the definition, promoting active recall. Goal: Grammar Application -> Method: Interactive Quiz -> Interaction: Users input answers and click a button to get immediate color-coded feedback (correct/incorrect), which is crucial for reinforcement. Goal: Reading Comprehension -> Method: Interactive Text -> Interaction: Key vocabulary in the story is highlighted and clickable, showing a tooltip with the definition on hover. This directly links reading to vocabulary study. These choices create an integrated learning environment where each part supports the others, all within a single, cohesive application. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn.active {
+            border-color: #4f46e5;
+            background-color: #eef2ff;
+            color: #4f46e5;
+        }
+        .flashcard-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        .feedback {
+            display: none;
+            font-weight: bold;
+        }
+        .feedback.correct {
+            display: inline;
+            color: #16a34a;
+        }
+        .feedback.incorrect {
+            display: inline;
+            color: #dc2626;
+        }
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .has-tooltip:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-indigo-700">ESL Lesson: New Community Garden Opens</h1>
+            <p class="text-slate-600 mt-2">An interactive lesson for intermediate beginners.</p>
+        </header>
+
+        <main>
+            <div class="mb-6 border-b border-slate-200">
+                <nav class="flex flex-wrap -mb-px" id="tab-nav">
+                    <button class="tab-btn active text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="story">1. Story</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="vocabulary">2. Vocabulary</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="grammar">3. Grammar</button>
+                    <button class="tab-btn text-lg font-medium p-4 border-b-2 border-transparent rounded-t-lg hover:text-slate-600 hover:border-slate-300" data-tab="practice">4. Practice</button>
+                </nav>
+            </div>
+
+            <div id="tab-content" class="bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                <section id="story" class="tab-pane active space-y-4">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 1: The News Story</h2>
+                    <div class="prose max-w-none text-lg leading-relaxed">
+                        <img src="https://placehold.co/600x300/a5b4fc/4338ca?text=Community+Garden" alt="A community garden with people tending to plants" class="rounded-lg w-full mb-6">
+                        <p class="mb-4">Hello and welcome to today's news!</p>
+                        <p>Our city's newest <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">community<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">a group of people living in the same place</span></span> garden is now open! Local <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">volunteers<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">people who work for free to help others</span></span> helped to build the garden on Elm Street. Now, many people in the neighborhood can <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">grow<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to get bigger or to make plants get bigger</span></span> their own vegetables.</p>
+                        <p>The garden is a <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">popular<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">liked by many people</span></span> place. Every day, people come to work and to talk with their neighbors. They grow fresh <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">produce<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">fresh fruits and vegetables</span></span> like tomatoes, carrots, and lettuce. The volunteers <span class="has-tooltip relative font-bold text-indigo-600 cursor-pointer">say<span class="tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-xs bg-slate-800 text-white text-sm rounded py-1 px-2">to speak or state something</span></span> that the garden helps the community. It gives people a place to meet and share ideas.</p>
+                    </div>
+                </section>
+
+                <section id="vocabulary" class="tab-pane hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 2: New Words</h2>
+                    <p class="mb-6 text-slate-600">Click on a card to see the definition and an example.</p>
+                    <div id="flashcards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                </section>
+
+                <section id="grammar" class="tab-pane hidden space-y-6">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 3: Grammar Focus</h2>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Simple Present Tense</h3>
+                        <p class="text-slate-600 mb-4">We use the simple present tense to talk about habits, routines, and facts.</p>
+                        <div class="space-y-4">
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <p class="font-bold text-indigo-800">For <code class="bg-white rounded px-1">I</code>, <code class="bg-white rounded px-1">you</code>, <code class="bg-white rounded px-1">we</code>, <code class="bg-white rounded px-1">they</code>: Use the base form of the verb.</p>
+                                <ul class="list-disc list-inside mt-2 text-slate-700">
+                                    <li>Example: They <strong class="text-indigo-600">grow</strong> vegetables.</li>
+                                    <li>Example: We <strong class="text-indigo-600">help</strong> to build the garden.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <p class="font-bold text-green-800">For <code class="bg-white rounded px-1">he</code>, <code class="bg-white rounded px-1">she</code>, <code class="bg-white rounded px-1">it</code>: Add <strong class="text-green-600">-s</strong> to the end of the verb.</p>
+                                <ul class="list-disc list-inside mt-2 text-slate-700">
+                                    <li>Example: She <strong class="text-green-600">works</strong> in the garden.</li>
+                                    <li>Example: The garden <strong class="text-green-600">helps</strong> the community.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="practice" class="tab-pane hidden space-y-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-indigo-600">Part 4: Practice Time!</h2>
+                    
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">A. Simple Present Practice</h3>
+                        <p class="text-slate-600 mb-4">Complete the sentences with the correct form of the verb.</p>
+                        <div class="space-y-4" id="quiz-a"></div>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">B. Correct the Sentences</h3>
+                        <p class="text-slate-600 mb-4">Find and fix the one mistake in each sentence.</p>
+                        <div class="space-y-4" id="quiz-b"></div>
+                    </div>
+
+                     <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">C. Write Your Own Sentences</h3>
+                        <p class="text-slate-600 mb-4">Write two sentences about your daily routine using the simple present tense.</p>
+                        <textarea class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="4" placeholder="Example: I wake up at 7 AM every morning."></textarea>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3 class="text-xl font-semibold mb-4">Part 5: Conversation Starters</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li>What do you think is a good way to help your community?</li>
+                            <li>Do you have a favorite vegetable or fruit? How often do you eat it?</li>
+                            <li>What is one thing you do every day? Describe your daily routine.</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-8 text-sm text-slate-500">
+            <p>Interactive ESL Lesson | Created with HTML, Tailwind CSS, and JavaScript</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonData = {
+                vocabulary: [
+                    { word: 'community', definition: 'a group of people living in the same place', example: 'Our community has a new park.' },
+                    { word: 'volunteers', definition: 'people who work for free to help others', example: 'The volunteers clean the park every week.' },
+                    { word: 'grow', definition: 'to get bigger or to make plants get bigger', example: 'I grow flowers in my backyard.' },
+                    { word: 'popular', definition: 'liked by many people', example: 'The new movie is very popular.' },
+                    { word: 'produce', definition: 'fresh fruits and vegetables', example: 'We buy fresh produce at the market.' },
+                    { word: 'say', definition: 'to speak or state something', example: 'They say it will rain tomorrow.' }
+                ],
+                quizA: [
+                    { question: '1. He ____ (work) in the garden every day.', answer: 'works' },
+                    { question: '2. The volunteers ____ (help) the city.', answer: 'help' },
+                    { question: '3. She ____ (grow) beautiful flowers.', answer: 'grows' },
+                    { question: '4. We ____ (talk) with our neighbors.', answer: 'talk' }
+                ],
+                quizB: [
+                    { question: '1. They grows vegetables.', answer: 'They grow vegetables.' },
+                    { question: '2. He like the community garden.', answer: 'He likes the community garden.' },
+                    { question: '3. We helps to build the park.', answer: 'We help to build the park.' }
+                ]
+            };
+            
+            const flashcardsContainer = document.getElementById('flashcards-container');
+            lessonData.vocabulary.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'flashcard bg-white rounded-lg shadow cursor-pointer h-40 perspective-1000';
+                card.innerHTML = `
+                    <div class="flashcard-inner relative w-full h-full">
+                        <div class="flashcard-front absolute w-full h-full flex items-center justify-center bg-indigo-100 rounded-lg p-4">
+                            <h3 class="text-2xl font-bold text-indigo-800">${item.word}</h3>
+                        </div>
+                        <div class="flashcard-back absolute w-full h-full bg-slate-100 rounded-lg p-4 flex flex-col justify-center">
+                            <p class="font-semibold text-slate-700">${item.definition}</p>
+                            <p class="text-sm text-slate-500 mt-2"><em>Example: ${item.example}</em></p>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+                flashcardsContainer.appendChild(card);
+            });
+
+            const quizAContainer = document.getElementById('quiz-a');
+            lessonData.quizA.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="q-a-${index}" class="block mb-1 text-slate-700">${item.question}</label>
+                    <div class="flex items-center space-x-2">
+                        <input id="q-a-${index}" type="text" class="w-full sm:w-1/2 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <button class="check-btn bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700" data-answer="${item.answer}">Check</button>
+                        <span class="feedback"></span>
+                    </div>
+                `;
+                quizAContainer.appendChild(div);
+            });
+            
+            const quizBContainer = document.getElementById('quiz-b');
+            lessonData.quizB.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label for="q-b-${index}" class="block mb-1 text-slate-700">${item.question}</label>
+                    <div class="flex items-center space-x-2">
+                         <input id="q-b-${index}" type="text" class="w-full sm:w-2/3 p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <button class="check-btn bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700" data-answer="${item.answer}">Check</button>
+                         <span class="feedback"></span>
+                    </div>
+                `;
+                quizBContainer.appendChild(div);
+            });
+
+            document.getElementById('practice').addEventListener('click', function(e) {
+                if (e.target.classList.contains('check-btn')) {
+                    const input = e.target.previousElementSibling;
+                    const feedback = e.target.nextElementSibling;
+                    const userAnswer = input.value.trim().toLowerCase().replace(/[.]/g, '');
+                    const correctAnswer = e.target.dataset.answer.toLowerCase().replace(/[.]/g, '');
+
+                    feedback.classList.remove('correct', 'incorrect');
+                    if (userAnswer === correctAnswer) {
+                        feedback.textContent = 'Correct!';
+                        feedback.classList.add('correct');
+                        input.classList.remove('border-red-400');
+                        input.classList.add('border-green-400');
+                    } else {
+                        feedback.innerHTML = `Incorrect. Try: <em>${e.target.dataset.answer}</em>`;
+                        feedback.classList.add('incorrect');
+                         input.classList.remove('border-green-400');
+                        input.classList.add('border-red-400');
+                    }
+                }
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabPanes.forEach(pane => {
+                        if (pane.id === tabId) {
+                            pane.classList.remove('hidden');
+                            pane.classList.add('active');
+                        } else {
+                            pane.classList.add('hidden');
+                            pane.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
